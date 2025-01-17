@@ -33,6 +33,9 @@ public @Data class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    private LegalOrNaturalPerson legalOrNaturalPerson;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
