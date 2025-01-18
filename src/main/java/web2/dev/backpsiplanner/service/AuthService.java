@@ -1,7 +1,6 @@
 package web2.dev.backpsiplanner.service;
 
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import web2.dev.backpsiplanner.config.security.JWTCreator;
@@ -30,12 +29,13 @@ public class AuthService {
 
     @SuppressWarnings("unchecked")
     public Session login (Login login) {
-        User user = userRepository.findByUsername(login.getUsername());
-        if (user == null) {
-            throw new UsernameNotFoundException(login.getUsername());
-        }
+        User user = userRepository.findByUsername(login.getUsernameOrEmail())
+                .orElseGet(() -> userRepository.findByEmail(login.getUsernameOrEmail())
+                        .orElseThrow( () -> new BadCredentialsException(login.getUsernameOrEmail() + " not found")
+                ));
+
         if (!passwordEncoder.matches(login.getPassword(), user.getPassword())) {
-            throw new BadCredentialsException(login.getUsername());
+            throw new BadCredentialsException("Wrong password. Please try again");
         }
 
         Session session = new Session();
