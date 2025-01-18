@@ -14,9 +14,11 @@ public @Data class Appointment {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "professional_id")
     private Professional professional;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "client_id")
     private Client client;
 
     private LocalDateTime date;

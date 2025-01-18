@@ -34,6 +34,9 @@ public @Data class Professional {
     @NotNull
     private Person person;
 
+    @NotBlank
+    private String location;
+
     @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL)
     private Collection<Appointment> appointments;
 

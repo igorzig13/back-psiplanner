@@ -23,15 +23,18 @@ public @Data class Clinic extends LegalOrNaturalPerson {
 
     @NotNull
     @CNPJ
+    @Column(unique = true)
     private String cnpj;
 
     @NotBlank
-    private String address;
+    private String location;
+
+    @Size(min = 1, max = 500)
+    @NotBlank
+    private String description;
 
     @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL)
     private Collection<Professional> professionals;
-
-    private String typeOfService;
 
     @Override
     public String getCpfOrCnpj() {
