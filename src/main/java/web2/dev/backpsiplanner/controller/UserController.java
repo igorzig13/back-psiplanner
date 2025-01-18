@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import web2.dev.backpsiplanner.dto.ClinicRegisterDTO;
 import web2.dev.backpsiplanner.dto.PersonRegisterDTO;
 import web2.dev.backpsiplanner.dto.ProfessionalRegisterDTO;
 import web2.dev.backpsiplanner.service.UserService;
@@ -27,5 +28,11 @@ public class UserController {
     public ResponseEntity<String> registerProfessionalUser (ProfessionalRegisterDTO professionalRegisterDTO) {
         userService.createProfessionalUser(professionalRegisterDTO);
         return ResponseEntity.ok("Professional registered successfully!");
+    }
+
+    @PostMapping("/register/clinic")
+    public ResponseEntity<String> registerClinicUser (ClinicRegisterDTO clinicRegisterDTO) {
+        userService.createClinicUser(clinicRegisterDTO);
+        return ResponseEntity.ok("Clinic registered successfully!");
     }
 }

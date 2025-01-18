@@ -5,12 +5,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import web2.dev.backpsiplanner.dto.ClinicRegisterDTO;
 import web2.dev.backpsiplanner.dto.PersonRegisterDTO;
 import web2.dev.backpsiplanner.dto.ProfessionalRegisterDTO;
-import web2.dev.backpsiplanner.model.Client;
-import web2.dev.backpsiplanner.model.Person;
-import web2.dev.backpsiplanner.model.Professional;
-import web2.dev.backpsiplanner.model.User;
+import web2.dev.backpsiplanner.model.*;
 import web2.dev.backpsiplanner.repository.*;
 
 import java.util.HashSet;
@@ -25,15 +23,17 @@ public class UserService implements UserDetailsService {
     private final RoleRepository roleRepository;
     private final PersonRepository personRepository;
     private final ProfessionalRepository professionalRepository;
+    private final ClinicRepository clinicRepository;
 
 
-    public UserService(UserRepository userRepository, ClientRepository clientRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository, PersonRepository personRepository, ProfessionalRepository professionalRepository) {
+    public UserService(UserRepository userRepository, ClientRepository clientRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository, PersonRepository personRepository, ProfessionalRepository professionalRepository, ClinicRepository clinicRepository) {
         this.userRepository = userRepository;
         this.clientRepository = clientRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
         this.personRepository = personRepository;
         this.professionalRepository = professionalRepository;
+        this.clinicRepository = clinicRepository;
     }
 
     public void createClientUser(PersonRegisterDTO personRegisterDTO){
@@ -83,6 +83,27 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
         professionalRepository.save(professional);
 
+    }
+
+    public void createClinicUser(ClinicRegisterDTO clinicRegisterDTO){
+        User user = new User();
+        Clinic clinic = new Clinic();
+
+        user.setUsername(clinicRegisterDTO.getUsername());
+        user.setPassword(passwordEncoder.encode(clinicRegisterDTO.getPassword()));
+        user.setEmail(clinicRegisterDTO.getEmail());
+        user.setRoles(new HashSet<>());
+        user.getRoles().add(roleRepository.findByName("ROLE_CLINIC").orElseThrow(() -> new RuntimeException("ROLE 'CLINIC' NOT FOUND")));
+
+        clinic.setName(clinicRegisterDTO.getClinicName());
+        clinic.setCnpj(clinicRegisterDTO.getCnpj());
+        clinic.setPhoneNumber(clinicRegisterDTO.getPhoneNumber());
+        clinic.setDescription(clinicRegisterDTO.getDescription());
+        clinic.setLocation(clinicRegisterDTO.getLocation());
+
+        user.setLegalOrNaturalPerson(clinic);
+        userRepository.save(user);
+        clinicRepository.save(clinic);
     }
 
     @Override
