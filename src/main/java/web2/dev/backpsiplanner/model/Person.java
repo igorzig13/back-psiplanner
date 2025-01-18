@@ -26,6 +26,7 @@ public @Data class Person extends LegalOrNaturalPerson {
 
     @NotNull
     @CPF
+    @Column(unique = true)
     private String cpf;
 
     private String gender;
