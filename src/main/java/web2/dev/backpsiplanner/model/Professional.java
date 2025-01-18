@@ -32,6 +32,7 @@ public @Data class Professional {
 
     @OneToOne(fetch = FetchType.EAGER)
     @NotNull
+    @JoinColumn(name = "person_id")
     private Person person;
 
     @NotBlank

@@ -16,6 +16,7 @@ public @Data class Client {
 
     @OneToOne(fetch = FetchType.EAGER)
     @NotNull
+    @JoinColumn(name = "person_id")
     private Person person;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)

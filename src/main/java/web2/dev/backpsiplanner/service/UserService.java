@@ -47,7 +47,7 @@ public class UserService implements UserDetailsService {
         user.getRoles().add(roleRepository.findByName("ROLE_CLIENT").orElseThrow(() -> new RuntimeException("ROLE 'CLIENT' NOT FOUND")));
 
         Person person = findPersonByDTO(personRegisterDTO);
-        if (person.getId() == 0){
+        if (person.getId() == null || person.getId() == 0){
             personRepository.save(person);
         }
 
@@ -69,7 +69,7 @@ public class UserService implements UserDetailsService {
         user.getRoles().add(roleRepository.findByName("ROLE_PROFESSIONAL").orElseThrow(() -> new RuntimeException("ROLE 'PROFESSIONAL' NOT FOUND")));
 
         Person person = findPersonByDTO(professionalRegisterDTO);
-        if (person.getId() == 0){
+        if (person.getId() == null || person.getId() == 0){
             personRepository.save(person);
         }
 

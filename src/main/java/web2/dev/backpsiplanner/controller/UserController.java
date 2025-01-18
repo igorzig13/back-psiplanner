@@ -9,7 +9,7 @@ import web2.dev.backpsiplanner.dto.ProfessionalRegisterDTO;
 import web2.dev.backpsiplanner.service.UserService;
 
 @RestController
-@RequestMapping(name = "/api/user")
+@RequestMapping("/api/user")
 public class UserController {
     private final UserService userService;
 

@@ -32,7 +32,7 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    private static final String[] PUBLIC_URLS = {"/api/", "/api/login"};
+    private static final String[] PUBLIC_URLS = {"/", "/api/auth/login", "/api/user/register/**"};
 
     private static final String[] SWAGGER_WHITELIST = {
             "/swagger-ui.html",
