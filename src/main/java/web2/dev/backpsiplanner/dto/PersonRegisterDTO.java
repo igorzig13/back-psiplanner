@@ -3,7 +3,7 @@ package web2.dev.backpsiplanner.dto;
 import lombok.Data;
 
 @Data
-public class ClientRegisterDTO {
+public class PersonRegisterDTO {
     private String username;
     private String firstName;
     private String lastName;
