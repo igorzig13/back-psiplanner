@@ -14,6 +14,7 @@ import web2.dev.backpsiplanner.repository.UserRepository;
 
 import java.util.Date;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthService {
@@ -40,6 +41,7 @@ public class AuthService {
 
         Session session = new Session();
         session.setLogin(user.getUsername());
+        session.setRoles(user.getRoles().stream().map(Role::getName).collect(Collectors.toSet()));
 
         JWTObject jwtObject = new JWTObject();
         jwtObject.setIssuedAt(new Date(System.currentTimeMillis()));
