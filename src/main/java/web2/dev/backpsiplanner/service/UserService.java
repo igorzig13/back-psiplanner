@@ -100,10 +100,10 @@ public class UserService implements UserDetailsService {
         clinic.setPhoneNumber(clinicRegisterDTO.getPhoneNumber());
         clinic.setDescription(clinicRegisterDTO.getDescription());
         clinic.setLocation(clinicRegisterDTO.getLocation());
+        clinicRepository.save(clinic);
 
         user.setLegalOrNaturalPerson(clinic);
         userRepository.save(user);
-        clinicRepository.save(clinic);
     }
 
     @Override
