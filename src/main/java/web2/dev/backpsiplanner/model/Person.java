@@ -31,6 +31,8 @@ public @Data class Person extends LegalOrNaturalPerson {
 
     private String gender;
 
+
+
     @Override
     public String getCpfOrCnpj() {
         return cpf;
