@@ -3,6 +3,8 @@ package web2.dev.backpsiplanner.dto;
 import lombok.Data;
 import web2.dev.backpsiplanner.model.Professional;
 
+import java.math.BigDecimal;
+
 @Data
 public class ProfessionalInfoDTO {
     private Long id;
@@ -13,6 +15,7 @@ public class ProfessionalInfoDTO {
     private String phoneNumber;
     private String description;
     private String location;
+    private BigDecimal averageRating;
 
     public ProfessionalInfoDTO from(Professional professional) {
         ProfessionalInfoDTO dto = new ProfessionalInfoDTO();
@@ -25,6 +28,7 @@ public class ProfessionalInfoDTO {
         dto.setPhoneNumber(professional.getPerson().getPhoneNumber());
         dto.setDescription(professional.getDescription());
         dto.setLocation(professional.getLocation());
+        dto.setAverageRating(professional.getAverageRating());
 
         return dto;
     }

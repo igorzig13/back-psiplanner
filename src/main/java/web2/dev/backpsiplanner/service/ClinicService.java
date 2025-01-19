@@ -20,4 +20,16 @@ public class ClinicService {
                 .map(clinic -> new ClinicInfoDTO().from(clinic))
                 .collect(Collectors.toList());
     }
+
+    public List<ClinicInfoDTO> getAllNotEmptyClinicsByName(String name) {
+        return clinicRepository.findByProfessionalsIsNotEmptyAndNameContainingIgnoreCase(name).stream()
+                .map(clinic -> new ClinicInfoDTO().from(clinic))
+                .collect(Collectors.toList());
+    }
+
+    public List<ClinicInfoDTO> getAllNotEmptyClinicsByLocation(String location) {
+        return clinicRepository.findByProfessionalsIsNotEmptyAndLocationContainingIgnoreCase(location).stream()
+                .map(clinic -> new ClinicInfoDTO().from(clinic))
+                .collect(Collectors.toList());
+    }
 }

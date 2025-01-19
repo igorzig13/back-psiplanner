@@ -22,9 +22,27 @@ public class ClientService {
     }
 
     public List<ClinicOrProfessionalDTO> getAllClinicsAndProfessionals(){
-        List<ClinicInfoDTO> clinics = clinicService.getAllNotEmptyClinics();
         List<ProfessionalInfoDTO> professionals = professionalService.getAllAutonomousProfessionals();
+        List<ClinicInfoDTO> clinics = clinicService.getAllNotEmptyClinics();
 
+        return mergeLists(professionals, clinics);
+    }
+
+    public List<ClinicOrProfessionalDTO> getAllClinicsAndProfessionalsFilteredByName(String name) {
+        List<ClinicInfoDTO> clinics = clinicService.getAllNotEmptyClinicsByName(name);
+        List<ProfessionalInfoDTO> professionals = professionalService.getAllAutonomousProfessionalsByName(name);
+
+        return mergeLists(professionals, clinics);
+    }
+
+    public List<ClinicOrProfessionalDTO> getAllClinicsAndProfessionalsFilteredByLocation(String location) {
+        List<ClinicInfoDTO> clinics = clinicService.getAllNotEmptyClinicsByLocation(location);
+        List<ProfessionalInfoDTO> professionals = professionalService.getAllAutonomousProfessionalsByLocation(location);
+
+        return mergeLists(professionals, clinics);
+    }
+
+    private List<ClinicOrProfessionalDTO> mergeLists(List<ProfessionalInfoDTO> professionals, List<ClinicInfoDTO> clinics) {
         List<ClinicOrProfessionalDTO> result = new ArrayList<>();
 
         for (ClinicInfoDTO clinicInfoDTO : clinics) {
@@ -42,5 +60,4 @@ public class ClientService {
 
         return result;
     }
-
 }

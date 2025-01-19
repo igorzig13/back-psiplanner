@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Collection;
 
 @Entity
@@ -43,4 +45,13 @@ public @Data class Professional {
 
     @OneToMany(mappedBy = "professional")
     private Collection<Rating> ratings;
+
+    /**
+     * Calculates the average rating of the professional.
+     * @return BigDecimal value indicating the average or -1.0 if no ratings have been found.
+     */
+    public BigDecimal getAverageRating() {
+        double average = ratings.stream().mapToInt(Rating::getValue).average().orElse(-1.0);
+        return new BigDecimal(average).setScale(2, RoundingMode.HALF_UP);
+    }
 }

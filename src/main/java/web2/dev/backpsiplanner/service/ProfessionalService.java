@@ -20,4 +20,22 @@ public class ProfessionalService {
                 .map(professional -> new ProfessionalInfoDTO().from(professional))
                 .collect(Collectors.toList());
     }
+
+    public List<ProfessionalInfoDTO> getAllAutonomousProfessionalsByName(String name) {
+        return professionalRepository.findByClinicIsNullFilteredByName(name).stream()
+                .map(professional -> new ProfessionalInfoDTO().from(professional))
+                .collect(Collectors.toList());
+    }
+
+    public List<ProfessionalInfoDTO> getAllAutonomousProfessionalsByLocation(String location) {
+        return professionalRepository.findByClinicIsNullAndLocationContainingIgnoreCase(location).stream()
+                .map(professional -> new ProfessionalInfoDTO().from(professional))
+                .collect(Collectors.toList());
+    }
+
+    public List<ProfessionalInfoDTO> getAllByClinicId(Long clinicId) {
+        return professionalRepository.findProfessionalsByClinicId(clinicId).stream()
+                .map(professional -> new ProfessionalInfoDTO().from(professional))
+                .collect(Collectors.toList());
+    }
 }
