@@ -54,7 +54,7 @@ public class SecurityConfig {
                         .requestMatchers(SWAGGER_WHITELIST).permitAll()
                         .requestMatchers("/api/client/**").hasRole("CLIENT")
                         .requestMatchers("/api/professional/**").hasRole("PROFESSIONAL")
-                        .requestMatchers("/api/enterprise/**").hasRole("ENTERPRISE")
+                        .requestMatchers("/api/clinic/**").hasRole("CLINIC")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement((sessionManager) -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

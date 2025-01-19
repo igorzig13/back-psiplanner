@@ -18,7 +18,7 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         createRoleIfNotExists("ROLE_CLIENT");
         createRoleIfNotExists("ROLE_PROFESSIONAL");
-        createRoleIfNotExists("ROLE_ENTERPRISE");
+        createRoleIfNotExists("ROLE_CLINIC");
     }
 
     private void createRoleIfNotExists(String roleName) {
