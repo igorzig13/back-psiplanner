@@ -21,4 +21,6 @@ public interface ProfessionalRepository extends JpaRepository<Professional, Long
     List<Professional> findByClinicIsNullAndLocationContainingIgnoreCase(String location);
 
     List<Professional> findProfessionalsByClinicId(Long clinicId);
+
+    Integer countProfessionalsByClinicId(Long clinicId);
 }
