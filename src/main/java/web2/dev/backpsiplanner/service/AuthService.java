@@ -42,6 +42,7 @@ public class AuthService {
         Session session = new Session();
         session.setLogin(user.getUsername());
         session.setRoles(user.getRoles().stream().map(Role::getName).collect(Collectors.toSet()));
+        session.setUserId(user.getId());
 
         JWTObject jwtObject = new JWTObject();
         jwtObject.setIssuedAt(new Date(System.currentTimeMillis()));
