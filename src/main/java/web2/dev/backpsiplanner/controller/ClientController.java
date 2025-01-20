@@ -1,12 +1,12 @@
 package web2.dev.backpsiplanner.controller;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import web2.dev.backpsiplanner.dto.AppointmentCreateDTO;
 import web2.dev.backpsiplanner.dto.ClinicOrProfessionalDTO;
 import web2.dev.backpsiplanner.dto.ProfessionalInfoDTO;
+import web2.dev.backpsiplanner.service.AppointmentService;
 import web2.dev.backpsiplanner.service.ClientService;
 import web2.dev.backpsiplanner.service.ProfessionalService;
 
@@ -18,10 +18,12 @@ import java.util.List;
 public class ClientController {
     private final ClientService clientService;
     private final ProfessionalService professionalService;
+    private final AppointmentService appointmentService;
 
-    public ClientController(ClientService clientService, ProfessionalService professionalService) {
+    public ClientController(ClientService clientService, ProfessionalService professionalService, AppointmentService appointmentService) {
         this.clientService = clientService;
         this.professionalService = professionalService;
+        this.appointmentService = appointmentService;
     }
 
     @GetMapping("/clinics-and-professionals")
@@ -42,5 +44,11 @@ public class ClientController {
     @GetMapping("clinic/professionals")
     public List<ProfessionalInfoDTO> findProfessionalsByClinicId(@RequestParam("clinicId") Long clinicId){
         return professionalService.getAllByClinicId(clinicId);
+    }
+
+    @PostMapping("/appointment")
+    public ResponseEntity<String> makeAppointment(@RequestBody AppointmentCreateDTO appointmentCreateDTO){
+        appointmentService.createAppointment(appointmentCreateDTO);
+        return ResponseEntity.ok("Successfully scheduled appointment");
     }
 }
