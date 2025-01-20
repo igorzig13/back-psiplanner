@@ -39,7 +39,7 @@ public class ClientController {
         return clientService.getAllClinicsAndProfessionalsFilteredByLocation(location);
     }
 
-    @GetMapping("clinic/get-professionals")
+    @GetMapping("clinic/professionals")
     public List<ProfessionalInfoDTO> findProfessionalsByClinicId(@RequestParam("clinicId") Long clinicId){
         return professionalService.getAllByClinicId(clinicId);
     }
