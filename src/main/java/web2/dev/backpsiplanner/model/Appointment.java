@@ -22,4 +22,7 @@ public @Data class Appointment {
     private Client client;
 
     private LocalDateTime date;
+
+    @Column(name = "cancelled", nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean cancelled = false;
 }

@@ -1,7 +1,9 @@
 package web2.dev.backpsiplanner.service;
 
 import org.springframework.stereotype.Service;
+import web2.dev.backpsiplanner.dto.ProfessionalDashboardDTO;
 import web2.dev.backpsiplanner.dto.ProfessionalInfoDTO;
+import web2.dev.backpsiplanner.model.Professional;
 import web2.dev.backpsiplanner.repository.ProfessionalRepository;
 
 import java.util.List;
@@ -37,5 +39,12 @@ public class ProfessionalService {
         return professionalRepository.findProfessionalsByClinicId(clinicId).stream()
                 .map(professional -> new ProfessionalInfoDTO().from(professional))
                 .collect(Collectors.toList());
+    }
+
+    public ProfessionalDashboardDTO getDashboard(Long professionalId) {
+        Professional professional = professionalRepository.findById(professionalId)
+                .orElseThrow( () -> new RuntimeException("Professional not found"));
+
+        return new ProfessionalDashboardDTO().from(professional);
     }
 }
