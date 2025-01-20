@@ -2,7 +2,6 @@ package web2.dev.backpsiplanner.service;
 
 import org.springframework.stereotype.Service;
 import web2.dev.backpsiplanner.dto.ClinicInfoDTO;
-import web2.dev.backpsiplanner.dto.ProfessionalInfoDTO;
 import web2.dev.backpsiplanner.model.Clinic;
 import web2.dev.backpsiplanner.model.Professional;
 import web2.dev.backpsiplanner.repository.ClinicRepository;
@@ -39,8 +38,8 @@ public class ClinicService {
                 .collect(Collectors.toList());
     }
 
-    public void addProfessional(ProfessionalInfoDTO professionalInfoDTO, Long clinicId) {
-        Professional professional = professionalRepository.findById(professionalInfoDTO.getId()).orElse(null);
+    public void addProfessional(Long professionalId, Long clinicId) {
+        Professional professional = professionalRepository.findById(professionalId).orElse(null);
         Clinic clinic = clinicRepository.findById(clinicId).orElse(null);
 
         if (clinic == null)

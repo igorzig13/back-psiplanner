@@ -27,8 +27,8 @@ public class ClinicController {
     }
 
     @PostMapping("/professionals/add")
-    public ResponseEntity<String> addProfessional(@RequestBody ProfessionalInfoDTO professionalInfoDTO, @RequestParam Long clinicId) {
-        clinicService.addProfessional(professionalInfoDTO, clinicId);
+    public ResponseEntity<String> addProfessional(@RequestParam Long professionalId, @RequestParam Long clinicId) {
+        clinicService.addProfessional(professionalId, clinicId);
         return ResponseEntity.ok("Successfully added the professional to the clinic");
     }
 
