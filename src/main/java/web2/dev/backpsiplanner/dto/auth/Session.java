@@ -12,4 +12,5 @@ public class Session {
     private String token;
     private Set<String> roles;
     private Long userId;
+    private Long entityId;
 }
