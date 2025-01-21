@@ -51,4 +51,9 @@ public class ClientController {
         appointmentService.createAppointment(appointmentInfoDTO);
         return ResponseEntity.ok("Successfully scheduled appointment");
     }
+
+    @GetMapping("/appointments")
+    public List<AppointmentInfoDTO> getAppointments(@RequestParam Long clientId){
+        return clientService.getAppointments(clientId);
+    }
 }
