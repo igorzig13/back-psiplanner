@@ -16,7 +16,7 @@ public class ProfessionalDashboardDTO {
     private BigDecimal averageRating;
     private Integer totalAppointments;
     private Integer appointmentsInTheMonth;
-    private Integer canceledAppointments;
+    private Integer cancelledAppointments;
 
     public ProfessionalDashboardDTO from(Professional professional) {
         ProfessionalDashboardDTO dto = new ProfessionalDashboardDTO();
@@ -30,7 +30,7 @@ public class ProfessionalDashboardDTO {
         dto.setAppointmentsInTheMonth(professional.getAppointments().stream()
                 .filter( a -> a.getDate().getMonth() == LocalDateTime.now().getMonth())
                 .toList().size());
-        dto.setCanceledAppointments(professional.getAppointments().stream()
+        dto.setCancelledAppointments(professional.getAppointments().stream()
                 .filter(Appointment::isCancelled).toList().size());
 
         return dto;

@@ -3,7 +3,7 @@ package web2.dev.backpsiplanner.controller;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import web2.dev.backpsiplanner.dto.AppointmentCreateDTO;
+import web2.dev.backpsiplanner.dto.AppointmentInfoDTO;
 import web2.dev.backpsiplanner.dto.ClinicOrProfessionalDTO;
 import web2.dev.backpsiplanner.dto.ProfessionalInfoDTO;
 import web2.dev.backpsiplanner.service.AppointmentService;
@@ -47,8 +47,8 @@ public class ClientController {
     }
 
     @PostMapping("/appointment")
-    public ResponseEntity<String> makeAppointment(@RequestBody AppointmentCreateDTO appointmentCreateDTO){
-        appointmentService.createAppointment(appointmentCreateDTO);
+    public ResponseEntity<String> makeAppointment(@RequestBody AppointmentInfoDTO appointmentInfoDTO){
+        appointmentService.createAppointment(appointmentInfoDTO);
         return ResponseEntity.ok("Successfully scheduled appointment");
     }
 }

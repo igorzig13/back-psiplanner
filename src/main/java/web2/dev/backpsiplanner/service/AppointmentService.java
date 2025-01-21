@@ -1,7 +1,7 @@
 package web2.dev.backpsiplanner.service;
 
 import org.springframework.stereotype.Service;
-import web2.dev.backpsiplanner.dto.AppointmentCreateDTO;
+import web2.dev.backpsiplanner.dto.AppointmentInfoDTO;
 import web2.dev.backpsiplanner.model.Appointment;
 import web2.dev.backpsiplanner.model.Client;
 import web2.dev.backpsiplanner.model.Professional;
@@ -21,20 +21,21 @@ public class AppointmentService {
         this.professionalRepository = professionalRepository;
     }
 
-    public void createAppointment(AppointmentCreateDTO appointmentCreateDTO) {
+    public void createAppointment(AppointmentInfoDTO appointmentInfoDTO) {
         Appointment appointment = new Appointment();
-        Client client = clientRepository.findById(appointmentCreateDTO.getClientId())
+        Client client = clientRepository.findById(appointmentInfoDTO.getClientId())
                 .orElseThrow(() -> new IllegalArgumentException("Client not found"));
-        Professional professional = professionalRepository.findById(appointmentCreateDTO.getProfessionalId())
+        Professional professional = professionalRepository.findById(appointmentInfoDTO.getProfessionalId())
                 .orElseThrow( () -> new IllegalArgumentException("Professional not found"));
 
-        if (appointmentCreateDTO.getDateTime() == null) {
+        if (appointmentInfoDTO.getDateTime() == null) {
             throw new IllegalArgumentException("DateTime cannot be null");
         }
 
         appointment.setClient(client);
         appointment.setProfessional(professional);
-        appointment.setDate(appointmentCreateDTO.getDateTime());
+        appointment.setDate(appointmentInfoDTO.getDateTime());
+        appointment.setCancelled(appointmentInfoDTO.isCancelled());
 
         appointmentRepository.save(appointment);
 
